@@ -1,0 +1,52 @@
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: #f1f3f3;
+  padding: 2rem 5vw;
+}
+
+.date {
+  padding: 1rem 1.5rem;
+  font-size: 1.2rem;
+  border: none;
+  border-left: 16px solid #009879;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.date:focus,
+.date:active {
+  /* border: none; */
+  outline: none;
+}
+
+.btn-div {
+  display: flex;
+  gap: 1.5rem;
+  margin: 4rem 0;
+}
+
+.input-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.settingsbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-family: inherit;
+}
+
+.icon {
+  font-size: 1rem;
+}
