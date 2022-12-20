@@ -1,12 +1,13 @@
 import "./App.css";
 import Table from "./Components/Table";
-import Button from "./Components/Button";
 import { GoSettings } from "react-icons/go";
 import { useState } from "react";
+import Settings from "./Components/Settings";
+
 function App() {
   const [startDate, setStartDate] = useState("2021-06-01");
   const [endDate, setEndDate] = useState("2021-06-01");
-  const [show, setShow] = useState(true);
+  const [active, setActive] = useState(true);
 
   const handleChangeOne = (e) => {
     const inputOne = e.target.value;
@@ -19,12 +20,7 @@ function App() {
   };
 
   const handleClick = () => {
-    console.log("clicked");
-    if (!show) {
-      setShow(true);
-    } else {
-      setShow(false);
-    }
+    setActive(true);
   };
 
   return (
@@ -61,19 +57,8 @@ function App() {
           </button>
         </div>
       </div>
-      {show && (
-        <div className="btn-div-show">
-          <Button>Date</Button>
-          <Button>App</Button>
-          <Button>Clicks</Button>
-          <Button>Ad Requests</Button>
-          <button className="normalbtn">Ad response</button>
-          <button className="normalbtn">Impression</button>
-          <Button>Revenue</Button>
-          <Button>Fill Rate</Button>
-          <Button>CTR</Button>
-        </div>
-      )}
+      <Settings active={active} setActive={setActive} />
+
       <Table startDate={startDate} endDate={endDate} />
     </div>
   );

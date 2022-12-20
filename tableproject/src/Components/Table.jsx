@@ -4,13 +4,14 @@ import { FaFilter } from "react-icons/fa";
 
 function Table({ endDate, startDate }) {
   const [items, setItems] = useState([]);
+  const [active, setActive] = useState(true);
 
   const fetchData = async () => {
     const response = await fetch(
       `http://go-dev.greedygame.com/v3/dummy/report?startDate=${startDate}&endDate=${endDate}`
     );
     if (!response.ok) {
-      throw new Error("Data coud not be fetched!");
+      throw new Error("Data could not be fetched!");
     } else {
       return response.json();
     }
@@ -23,17 +24,30 @@ function Table({ endDate, startDate }) {
       });
   }, [startDate, endDate]);
   console.log(items.data);
+
+  const handleClick = () => {
+    console.log("clicked");
+    if (active) {
+      setActive(false);
+    } else {
+      setActive(true);
+    }
+  };
+
   function cal(a, b) {
     return (a / b) * 100;
   }
+
   return (
     <div className={styles.table}>
       <table>
         <tbody>
           <tr>
-            <th>
-              <FaFilter />
-            </th>
+            {active && (
+              <th>
+                <FaFilter />
+              </th>
+            )}
             <th>
               <FaFilter />
             </th>

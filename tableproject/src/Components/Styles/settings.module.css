@@ -1,0 +1,27 @@
+.btnsdiv {
+  display: flex;
+  margin-left: auto;
+  justify-content: flex-end;
+
+  gap: 1rem;
+}
+
+.btnclose {
+  padding: 0.6rem 1rem;
+  color: #136fed;
+  border: 1px solid #136fed;
+  background: transparent;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btnapply {
+  padding: 0.6rem 1rem;
+  color: #fff;
+  background: #136fed;
+  border-radius: 3px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+}
