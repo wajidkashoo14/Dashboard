@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Styles/table.module.css";
 
-function Table() {
+function Table({ endDate, startDate }) {
   const [items, setItems] = useState([]);
 
   const fetchData = async () => {
     const response = await fetch(
-      "http://go-dev.greedygame.com/v3/dummy/report?startDate=2021-05-01&endDate=2021-05-03"
+      `http://go-dev.greedygame.com/v3/dummy/report?startDate=${startDate}&endDate=${endDate}`
     );
     if (!response.ok) {
       throw new Error("Data coud not be fetched!");
@@ -20,7 +20,7 @@ function Table() {
       .catch((e) => {
         console.log(e.message);
       });
-  }, []);
+  }, [startDate, endDate]);
   console.log(items.data);
   function cal(a, b) {
     return (a / b) * 100;

@@ -2,19 +2,46 @@ import "./App.css";
 import Table from "./Components/Table";
 import Button from "./Components/Button";
 import { GoSettings } from "react-icons/go";
+import { useState } from "react";
 function App() {
+  const [startDate, setStartDate] = useState("2021-06-01");
+  const [endDate, setEndDate] = useState("2021-06-01");
+  const handleChangeOne = (e) => {
+    const inputOne = e.target.value;
+    setStartDate(inputOne);
+  };
+  const handleChangeTwo = (e) => {
+    const inputTwo = e.target.value;
+    setEndDate(inputTwo);
+  };
   return (
     <div className="container">
       <div className="input-div">
-        <input
-          type="date"
-          id="start"
-          name="trip-start"
-          value="2018-07-22"
-          min="2021-06-01"
-          max="2021-06-31"
-          className="date"
-        />
+        <div className="input">
+          <label for="html">From </label>
+          <input
+            type="date"
+            id="start"
+            name="trip-start"
+            value={startDate}
+            min="2021-06-01"
+            max="2021-06-31"
+            className="date"
+            onChange={handleChangeOne}
+          />
+          <label for="html">To</label>
+          <input
+            type="date"
+            id="start"
+            name="trip-start"
+            value={endDate}
+            min="2021-06-01"
+            max="2021-06-31"
+            className="date"
+            onChange={handleChangeTwo}
+          />
+        </div>
+
         <Button className={"settingsbtn"}>
           <GoSettings className="icon" />
           Setings
@@ -31,7 +58,7 @@ function App() {
         <Button>Fill Rate</Button>
         <Button>CTR</Button>
       </div>
-      <Table />
+      <Table startDate={startDate} endDate={endDate} />
     </div>
   );
 }
