@@ -6,14 +6,27 @@ import { useState } from "react";
 function App() {
   const [startDate, setStartDate] = useState("2021-06-01");
   const [endDate, setEndDate] = useState("2021-06-01");
+  const [show, setShow] = useState(true);
+
   const handleChangeOne = (e) => {
     const inputOne = e.target.value;
     setStartDate(inputOne);
   };
+
   const handleChangeTwo = (e) => {
     const inputTwo = e.target.value;
     setEndDate(inputTwo);
   };
+
+  const handleClick = () => {
+    console.log("clicked");
+    if (!show) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  };
+
   return (
     <div className="container">
       <div className="input-div">
@@ -41,23 +54,26 @@ function App() {
             onChange={handleChangeTwo}
           />
         </div>
-
-        <Button className={"settingsbtn"}>
-          <GoSettings className="icon" />
-          Setings
-        </Button>
+        <div onClick={handleClick}>
+          <button className="settingsbtn">
+            <GoSettings className="icon" />
+            Setings
+          </button>
+        </div>
       </div>
-      <div className="btn-div">
-        <Button>Date</Button>
-        <Button>App</Button>
-        <Button>Clicks</Button>
-        <Button>Ad Requests</Button>
-        <Button>Ad response</Button>
-        <Button>Impression</Button>
-        <Button>Revenue</Button>
-        <Button>Fill Rate</Button>
-        <Button>CTR</Button>
-      </div>
+      {show && (
+        <div className="btn-div-show">
+          <Button>Date</Button>
+          <Button>App</Button>
+          <Button>Clicks</Button>
+          <Button>Ad Requests</Button>
+          <button className="normalbtn">Ad response</button>
+          <button className="normalbtn">Impression</button>
+          <Button>Revenue</Button>
+          <Button>Fill Rate</Button>
+          <Button>CTR</Button>
+        </div>
+      )}
       <Table startDate={startDate} endDate={endDate} />
     </div>
   );

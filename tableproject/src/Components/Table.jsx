@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Styles/table.module.css";
+import { FaFilter } from "react-icons/fa";
 
 function Table({ endDate, startDate }) {
   const [items, setItems] = useState([]);
@@ -28,6 +29,37 @@ function Table({ endDate, startDate }) {
   return (
     <div className={styles.table}>
       <table>
+        <tbody>
+          <tr>
+            <th>
+              <FaFilter />
+            </th>
+            <th>
+              <FaFilter />
+            </th>
+            <th>
+              <FaFilter />
+            </th>
+            <th>
+              <FaFilter />
+            </th>
+            <th>
+              <FaFilter />
+            </th>
+            <th>
+              <FaFilter />
+            </th>
+            <th>
+              <FaFilter />
+            </th>
+            <th>
+              <FaFilter />
+            </th>
+            <th>
+              <FaFilter />
+            </th>
+          </tr>
+        </tbody>
         <tbody>
           <tr>
             <th>Date</th>
