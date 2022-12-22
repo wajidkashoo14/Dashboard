@@ -28,21 +28,12 @@ body {
   outline: none;
 }
 
-.btn-div-show {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.9rem;
-  margin: 4rem 0;
-  transition: all 0.2s;
-}
-
 .input-div {
   display: flex;
   justify-content: space-between;
 }
 
-.settingsbtn,
-.normalbtn {
+.settingsbtn {
   padding: 0.6rem 0.5rem;
   width: 7rem;
   color: black;
@@ -55,23 +46,44 @@ body {
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+  gap: 5px;
+  font-family: inherit;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  font-family: inherit;
 }
+
 .input {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  border: 1px solid #d2d8da;
+  padding: 0 0.5rem;
 }
 
 .icon {
   font-size: 1rem;
+}
+.active {
+  border-left: 5px solid #136fed;
+}
+.btn {
+  padding: 0.6rem 0.5rem;
+  width: 9.2rem;
+  color: black;
+  background-color: transparent;
+  border-radius: 3px;
+  text-align: left;
+  /* border: 1px solid #bfc8cb;  */
+  transition: all 0.2s;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
 }

@@ -3,11 +3,24 @@ import Table from "./Components/Table";
 import { GoSettings } from "react-icons/go";
 import { useState } from "react";
 import Settings from "./Components/Settings";
+import { AppContext } from "./Components/AppContext/Appcontext";
 
 function App() {
   const [startDate, setStartDate] = useState("2021-06-01");
   const [endDate, setEndDate] = useState("2021-06-01");
   const [active, setActive] = useState(true);
+  const [items, setItems] = useState([]);
+  const [selectedFields, setSelectedFields] = useState({
+    app_id: true,
+    clicks: true,
+    date: true,
+    impressions: true,
+    requests: true,
+    responses: true,
+    revenue: true,
+    ctr: true,
+    fillrate: true,
+  });
 
   const handleChangeOne = (e) => {
     const inputOne = e.target.value;
@@ -25,6 +38,7 @@ function App() {
 
   return (
     <div className="container">
+      <h4>Analytics</h4>
       <div className="input-div">
         <div className="input">
           <label for="html">From </label>
@@ -57,9 +71,21 @@ function App() {
           </button>
         </div>
       </div>
-      <Settings active={active} setActive={setActive} />
-
-      <Table startDate={startDate} endDate={endDate} />
+      <AppContext.Provider
+        value={{
+          active,
+          setActive,
+          startDate,
+          endDate,
+          items,
+          setItems,
+          selectedFields,
+          setSelectedFields,
+        }}
+      >
+        <Settings />
+        <Table />
+      </AppContext.Provider>
     </div>
   );
 }

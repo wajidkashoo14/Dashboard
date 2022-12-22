@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./Styles/table.module.css";
 import { FaFilter } from "react-icons/fa";
+import { AppContext } from "./AppContext/Appcontext";
 
-function Table({ endDate, startDate }) {
-  const [items, setItems] = useState([]);
-  const [active, setActive] = useState(true);
+function Table() {
+  const { endDate, startDate, items, setItems, selectedFields } =
+    useContext(AppContext);
 
   const fetchData = async () => {
     const response = await fetch(
@@ -18,93 +19,72 @@ function Table({ endDate, startDate }) {
   };
   useEffect(() => {
     fetchData()
-      .then((res) => setItems(res))
+      .then((res) => {
+        console.log("fed", res);
+        setItems(res);
+      })
       .catch((e) => {
         console.log(e.message);
       });
   }, [startDate, endDate]);
   console.log(items.data);
 
-  const handleClick = () => {
-    console.log("clicked");
-    if (active) {
-      setActive(false);
-    } else {
-      setActive(true);
-    }
-  };
+  function generateUI() {
+    const ff = [];
 
+    items.data?.forEach((val, key) => {
+      const tr = (
+        <tr key={key}>
+          {Object.keys(selectedFields)
+            .filter((val) => selectedFields[val] === true)
+            .map((key) => {
+              if (key == "ctr") {
+                return <td>{cal(val.clicks, val.impressions)}</td>;
+              }
+              if (key == "fillrate") {
+                return <td>{cal(val.requests, val.responses)}</td>;
+              }
+              return <td key={key}>{val[key]}</td>;
+            })}
+        </tr>
+      );
+      ff.push(tr);
+    });
+    console.log(ff?.length);
+    console.log(items?.data?.length);
+    console.log(selectedFields);
+    return ff;
+  }
   function cal(a, b) {
     return (a / b) * 100;
   }
-
+  function generateHeading() {
+    const result = [];
+    for (const key in selectedFields) {
+      if (selectedFields[key]) {
+        result.push(<th>{key.toString().toUpperCase()}</th>);
+      }
+    }
+    return result;
+  }
   return (
     <div className={styles.table}>
       <table>
         <tbody>
           <tr>
-            {active && (
-              <th>
-                <FaFilter />
-              </th>
-            )}
-            <th>
-              <FaFilter />
-            </th>
-            <th>
-              <FaFilter />
-            </th>
-            <th>
-              <FaFilter />
-            </th>
-            <th>
-              <FaFilter />
-            </th>
-            <th>
-              <FaFilter />
-            </th>
-            <th>
-              <FaFilter />
-            </th>
-            <th>
-              <FaFilter />
-            </th>
-            <th>
-              <FaFilter />
-            </th>
+            {generateHeading().map((val) => {
+              return (
+                <th>
+                  <FaFilter />
+                </th>
+              );
+            })}
           </tr>
         </tbody>
         <tbody>
-          <tr>
-            <th>Date</th>
-            <th>App Name</th>
-            <th>AD Request</th>
-            <th>AD Response</th>
-            <th>Impression</th>
-            <th>Clicks</th>
-            <th>Revenue</th>
-            <th>Fill Rate</th>
-            <th>CTR</th>
-          </tr>
+          <tr> {items?.data && items.data[0] ? generateHeading() : null}</tr>
         </tbody>
-        {items.data?.map((val, key) => {
-          console.log((val.requests / val.responses) * 100);
-          return (
-            <tbody>
-              <tr key={key}>
-                <td key={key}>{val.date}</td>
-                <td key={key}>{val.app_id}</td>
-                <td key={key}>{val.requests}</td>
-                <td key={key}>{val.responses}</td>
-                <td key={key}>{val.impressions}</td>
-                <td key={key}>{val.clicks}</td>
-                <td key={key}>{val.revenue}</td>
-                <td key={key}>{cal(val.requests, val.responses)}</td>
-                <td key={key}>{cal(val.clicks, val.impressions)}</td>
-              </tr>
-            </tbody>
-          );
-        })}
+        <tbody>{generateUI()}</tbody>
       </table>
     </div>
   );
